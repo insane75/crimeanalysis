@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white py-3">
+                <h4 class="fw-bold mb-0">Register New Crime Victim</h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="/victims/add" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted">VICTIM ID</label>
+                            <input type="number" name="victim_id" class="form-control" required>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small text-muted">FULL NAME / ENTITY NAME</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">ORGANIZATION (If any)</label>
+                            <input type="text" name="organization" class="form-control" placeholder="e.g. Bank ABC, Tech Corp">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small text-muted">AGE</label>
+                            <input type="number" name="age" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small text-muted">GENDER</label>
+                            <select name="gender" class="form-select">
+                                <option value="">Select...</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">CONTACT INFO</label>
+                            <input type="text" name="contact_info" class="form-control" required placeholder="Email or Phone">
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                        <a href="/victims" class="btn btn-light px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">Register Victim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,164 @@
+<%- include('partials/header') %>
+
+<div class="hero-section text-center mb-5">
+    <div class="container py-4">
+        <h1 class="display-4 fw-bold">Cyber Crime Analysis <span class="text-info">Dashboard</span></h1>
+        <p class="lead text-light-50">Operational Intelligence & Investigative Data Management System</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Stat Cards -->
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body bg-gradient p-4 text-center">
+                <div class="icon-circle bg-primary bg-opacity-10 text-primary mx-auto mb-3" style="width: 60px; height: 60px; border-radius: 50%; line-height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <h2 class="fw-bold mb-0"><%= stats.crimes %></h2>
+                <p class="text-muted small fw-bold mb-0">TOTAL CRIMES</p>
+            </div>
+            <div class="card-footer bg-white border-0 text-center pb-4">
+                <a href="/crimes" class="btn btn-sm btn-outline-primary rounded-pill px-3">View List</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body bg-gradient p-4 text-center">
+                <div class="icon-circle bg-danger bg-opacity-10 text-danger mx-auto mb-3" style="width: 60px; height: 60px; border-radius: 50%; line-height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <h2 class="fw-bold mb-0"><%= stats.criminals %></h2>
+                <p class="text-muted small fw-bold mb-0">DETECTED CRIMINALS</p>
+            </div>
+            <div class="card-footer bg-white border-0 text-center pb-4">
+                <a href="/criminals" class="btn btn-sm btn-outline-danger rounded-pill px-3">View List</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body bg-gradient p-4 text-center">
+                <div class="icon-circle bg-success bg-opacity-10 text-success mx-auto mb-3" style="width: 60px; height: 60px; border-radius: 50%; line-height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h2 class="fw-bold mb-0"><%= stats.investigations %></h2>
+                <p class="text-muted small fw-bold mb-0">ACTIVE CASES</p>
+            </div>
+            <div class="card-footer bg-white border-0 text-center pb-4">
+                <a href="/investigations" class="btn btn-sm btn-outline-success rounded-pill px-3">Manage</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body bg-gradient p-4 text-center">
+                <div class="icon-circle bg-warning bg-opacity-10 text-warning mx-auto mb-3" style="width: 60px; height: 60px; border-radius: 50%; line-height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2 class="fw-bold mb-0"><%= stats.victims %></h2>
+                <p class="text-muted small fw-bold mb-0">REGISTERED VICTIMS</p>
+            </div>
+            <div class="card-footer bg-white border-0 text-center pb-4">
+                <a href="/victims" class="btn btn-sm btn-outline-warning rounded-pill px-3">View Archive</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold mb-0">System Quick Access</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6 col-md-4 text-center">
+                        <a href="/locations" class="d-block p-3 rounded-3 text-decoration-none bg-light hover-bg-primary transition-all">
+                            <i class="fas fa-map-marker-alt fa-2x mb-2 text-primary"></i>
+                            <div class="small fw-bold text-dark">Geo Locations</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 text-center">
+                        <a href="/evidence" class="d-block p-3 rounded-3 text-decoration-none bg-light hover-bg-primary transition-all">
+                            <i class="fas fa-microscope fa-2x mb-2 text-info"></i>
+                            <div class="small fw-bold text-dark">Evidence Lab</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 text-center">
+                        <a href="/patterns" class="d-block p-3 rounded-3 text-decoration-none bg-light hover-bg-primary transition-all">
+                            <i class="fas fa-project-diagram fa-2x mb-2 text-dark"></i>
+                            <div class="small fw-bold text-dark">Threat Patterns</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 text-center">
+                        <a href="/analytics" class="d-block p-3 rounded-3 text-decoration-none bg-light hover-bg-primary transition-all">
+                            <i class="fas fa-chart-pie fa-2x mb-2 text-success"></i>
+                            <div class="small fw-bold text-dark">Visual Insights</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 text-center">
+                        <a href="/dbms-queries" class="d-block p-3 rounded-3 text-decoration-none bg-light hover-bg-primary transition-all">
+                            <i class="fas fa-database fa-2x mb-2 text-danger"></i>
+                            <div class="small fw-bold text-dark">SQL Queries</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 text-center">
+                        <a href="/relationships" class="d-block p-3 rounded-3 text-decoration-none bg-light hover-bg-primary transition-all">
+                            <i class="fas fa-link fa-2x mb-2 text-secondary"></i>
+                            <div class="small fw-bold text-dark">Mapping</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 bg-primary text-white">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-info-circle me-2"></i>Investigation Status</h5>
+                <p class="small text-white-50">Current case status overview from the investigation department.</p>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between mb-1 small fw-bold">
+                        <span>Open Cases</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 6px; background-color: rgba(255,255,255,0.2);">
+                        <div class="progress-bar bg-info" style="width: 45%"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-1 small fw-bold">
+                        <span>Resolved</span>
+                        <span>30%</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 6px; background-color: rgba(255,255,255,0.2);">
+                        <div class="progress-bar bg-success" style="width: 30%"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-1 small fw-bold">
+                        <span>Pending Evidence</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 6px; background-color: rgba(255,255,255,0.2);">
+                        <div class="progress-bar bg-warning" style="width: 25%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-bg-primary:hover {
+        background-color: var(--accent-blue) !important;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+</style>
+
+<%- include('partials/footer') %>

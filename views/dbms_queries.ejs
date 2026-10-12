@@ -1,0 +1,101 @@
+<%- include('partials/header') %>
+
+<div class="hero-section text-center mb-5 py-4 bg-dark text-white">
+    <div class="container">
+        <h1 class="display-5 fw-bold text-danger"><i class="fas fa-terminal me-3"></i>DBMS <span class="text-white-50">Showcase</span></h1>
+        <p class="lead">Demonstrating Advanced SQL Features: Views, Procedures, and Triggers</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- SQL VIEW Showcase -->
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold mb-0">1. SQL View: crime_details_view</h5>
+                <span class="badge bg-light text-primary">SELECT * FROM crime_details_view</span>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small">This view joins the CRIME and LOCATION tables to provide a flattened view of incident data.</p>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped">
+                        <thead class="bg-light">
+                            <tr><th>ID</th><th>Type</th><th>Severity</th><th>Date</th><th>City</th><th>State</th></tr>
+                        </thead>
+                        <tbody>
+                            <% viewData.forEach(row => { %>
+                                <tr>
+                                    <td><%= row.crime_id %></td>
+                                    <td><%= row.type %></td>
+                                    <td><%= row.severity_level %></td>
+                                    <td><%= new Date(row.date).toLocaleDateString() %></td>
+                                    <td><%= row.city %></td>
+                                    <td><%= row.state %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STORED PROCEDURE Showcase -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-success text-white py-3">
+                <h5 class="fw-bold mb-0">2. Stored Procedure: GetCrimesBySeverity</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-light border-start border-success border-4 mb-3">
+                    <code class="small text-dark">CALL GetCrimesBySeverity('High')</code>
+                </div>
+                <p class="text-muted small">Results for 'High' severity crimes returned by the procedure:</p>
+                <ul class="list-group list-group-flush">
+                    <% highSeverityCrimes.forEach(crime => { %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <%= crime.type %>
+                            <span class="badge bg-danger rounded-pill">#<%= crime.crime_id %></span>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRIGGER Showcase -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-warning py-3">
+                <h5 class="fw-bold mb-0 text-dark">3. Trigger: validate_investigation_dates</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small">This trigger prevents adding investigations where the <strong>End Date</strong> is earlier than the <strong>Start Date</strong>.</p>
+                
+                <div class="d-grid mb-3">
+                    <form action="/dbms-queries/test-trigger" method="POST">
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fas fa-bug me-2"></i>Test Trigger (Attempt Invalid Entry)
+                        </button>
+                    </form>
+                </div>
+
+                <% if (req.query.trigger_status === 'worked') { %>
+                    <div class="alert alert-success border-0 shadow-sm">
+                        <h6 class="fw-bold"><i class="fas fa-check-circle me-2"></i>Database Trigger Worked!</h6>
+                        <hr>
+                        <p class="small mb-0">The database rejected the insert with message:</p>
+                        <code class="small d-block mt-2 p-2 bg-light rounded"><%= req.query.msg %></code>
+                    </div>
+                <% } else if (req.query.trigger_status === 'failed_to_trigger') { %>
+                    <div class="alert alert-danger">
+                        <h6 class="fw-bold">Trigger Failed!</h6>
+                        <p class="small">The record was inserted, which means the trigger didn't catch the error.</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

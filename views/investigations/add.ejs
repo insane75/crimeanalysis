@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white py-3">
+                <h4 class="fw-bold mb-0">Open New Investigation Case</h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="/investigations/add" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted">CASE ID</label>
+                            <input type="number" name="investigation_id" class="form-control" required>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small text-muted">ASSIGNED OFFICER</label>
+                            <input type="text" name="officer_name" class="form-control" placeholder="e.g. Inspector Roy" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">STATUS</label>
+                            <select name="status" class="form-select" required>
+                                <option value="Open">Open</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">ASSOCIATED CRIME</label>
+                            <select name="crime_id" class="form-select">
+                                <option value="">Select Crime...</option>
+                                <% crimes.forEach(c => { %>
+                                    <option value="<%= c.crime_id %>"><%= c.type %> (#<%= c.crime_id %>)</option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">START DATE</label>
+                            <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">END DATE (If resolved)</label>
+                            <input type="date" name="end_date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                        <a href="/investigations" class="btn btn-light px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">Open Investigation</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer bg-light py-2 px-4">
+                <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Triggers in the database will validate that the end date is not before the start date.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

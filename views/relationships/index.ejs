@@ -1,0 +1,177 @@
+<%- include('../partials/header') %>
+
+<div class="hero-section text-center mb-4 py-3">
+    <div class="container">
+        <h2 class="fw-bold">Entity Mapping & <span class="text-info">Relationships</span></h2>
+        <p class="small text-white-50">Manage the complex connections between Criminals, Crimes, Victims, and Patterns</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Criminal to Crime Mapping -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="fw-bold mb-0 text-primary small"><i class="fas fa-link me-2"></i>CRIMINAL <i class="fas fa-chevron-right mx-1 small"></i> CRIME</h5>
+            </div>
+            <div class="card-body">
+                <form action="/relationships/criminal-crime" method="POST" class="row g-2 mb-4">
+                    <div class="col-8">
+                        <select name="criminal_id" class="form-select form-select-sm" required>
+                            <option value="">Criminal...</option>
+                            <% criminals.forEach(c => { %>
+                                <option value="<%= c.criminal_id %>"><%= c.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-8 mt-2">
+                        <select name="crime_id" class="form-select form-select-sm" required>
+                            <option value="">Crime...</option>
+                            <% crimes.forEach(cr => { %>
+                                <option value="<%= cr.crime_id %>"><%= cr.type %> (#<%= cr.crime_id %>)</option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-2 d-grid">
+                        <button type="submit" class="btn btn-sm btn-primary">Map</button>
+                    </div>
+                </form>
+
+                <div class="table-responsive" style="max-height: 300px;">
+                    <table class="table table-sm table-hover small">
+                        <thead class="bg-light">
+                            <tr><th>Criminal</th><th>Crime</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <% criminalCrimes.forEach(cc => { %>
+                                <tr>
+                                    <td><%= cc.criminal_name %></td>
+                                    <td><%= cc.crime_type %></td>
+                                    <td class="text-end">
+                                        <form action="/relationships/criminal-crime/delete" method="POST" class="d-inline">
+                                            <input type="hidden" name="criminal_id" value="<%= cc.criminal_id %>">
+                                            <input type="hidden" name="crime_id" value="<%= cc.crime_id %>">
+                                            <button type="submit" class="btn btn-link text-danger p-0"><i class="fas fa-times-circle"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crime to Victim Mapping -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="fw-bold mb-0 text-info small"><i class="fas fa-user-shield me-2"></i>CRIME <i class="fas fa-chevron-right mx-1 small"></i> VICTIM</h5>
+            </div>
+            <div class="card-body">
+                <form action="/relationships/crime-victim" method="POST" class="row g-2 mb-4">
+                    <div class="col-8">
+                        <select name="crime_id" class="form-select form-select-sm" required>
+                            <option value="">Crime...</option>
+                            <% crimes.forEach(cr => { %>
+                                <option value="<%= cr.crime_id %>"><%= cr.type %> (#<%= cr.crime_id %>)</option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-8 mt-2">
+                        <select name="victim_id" class="form-select form-select-sm" required>
+                            <option value="">Victim...</option>
+                            <% victims.forEach(v => { %>
+                                <option value="<%= v.victim_id %>"><%= v.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-2 d-grid">
+                        <button type="submit" class="btn btn-sm btn-info text-white">Map</button>
+                    </div>
+                </form>
+
+                <div class="table-responsive" style="max-height: 300px;">
+                    <table class="table table-sm table-hover small">
+                        <thead class="bg-light">
+                            <tr><th>Crime</th><th>Victim</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <% crimeVictims.forEach(cv => { %>
+                                <tr>
+                                    <td><%= cv.crime_type %></td>
+                                    <td><%= cv.victim_name %></td>
+                                    <td class="text-end">
+                                        <form action="/relationships/crime-victim/delete" method="POST" class="d-inline">
+                                            <input type="hidden" name="crime_id" value="<%= cv.crime_id %>">
+                                            <input type="hidden" name="victim_id" value="<%= cv.victim_id %>">
+                                            <button type="submit" class="btn btn-link text-danger p-0"><i class="fas fa-times-circle"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crime to Pattern Mapping -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="fw-bold mb-0 text-dark small"><i class="fas fa-project-diagram me-2"></i>CRIME <i class="fas fa-chevron-right mx-1 small"></i> PATTERN</h5>
+            </div>
+            <div class="card-body">
+                <form action="/relationships/crime-pattern" method="POST" class="row g-2 mb-4">
+                    <div class="col-8">
+                        <select name="crime_id" class="form-select form-select-sm" required>
+                            <option value="">Crime...</option>
+                            <% crimes.forEach(cr => { %>
+                                <option value="<%= cr.crime_id %>"><%= cr.type %> (#<%= cr.crime_id %>)</option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-8 mt-2">
+                        <select name="pattern_id" class="form-select form-select-sm" required>
+                            <option value="">Pattern...</option>
+                            <% patterns.forEach(p => { %>
+                                <option value="<%= p.pattern_id %>"><%= p.pattern_type %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-2 d-grid">
+                        <button type="submit" class="btn btn-sm btn-dark">Map</button>
+                    </div>
+                </form>
+
+                <div class="table-responsive" style="max-height: 300px;">
+                    <table class="table table-sm table-hover small">
+                        <thead class="bg-light">
+                            <tr><th>Crime</th><th>Pattern</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <% crimePatterns.forEach(cp => { %>
+                                <tr>
+                                    <td><%= cp.crime_type %></td>
+                                    <td><%= cp.pattern_type %></td>
+                                    <td class="text-end">
+                                        <form action="/relationships/crime-pattern/delete" method="POST" class="d-inline">
+                                            <input type="hidden" name="crime_id" value="<%= cp.crime_id %>">
+                                            <input type="hidden" name="pattern_id" value="<%= cp.pattern_id %>">
+                                            <button type="submit" class="btn btn-link text-danger p-0"><i class="fas fa-times-circle"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

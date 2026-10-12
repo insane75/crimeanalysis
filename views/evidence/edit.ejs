@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white py-3">
+                <h4 class="fw-bold mb-0">Update Evidence Record #<%= evidence.evidence_id %></h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="/evidence/edit/<%= evidence.evidence_id %>" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted">EVIDENCE ID (Locked)</label>
+                            <input type="number" class="form-control bg-light" value="<%= evidence.evidence_id %>" readonly>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small text-muted">EVIDENCE TYPE</label>
+                            <input type="text" name="type" class="form-control" value="<%= evidence.type %>" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">DESCRIPTION</label>
+                            <input type="text" name="description" class="form-control" value="<%= evidence.description %>">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">COLLECTED DATA / HASHES / DETAILS</label>
+                            <textarea name="collected_data" class="form-control" rows="3"><%= evidence.collected_data %></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">ASSOCIATED CRIME INCIDENT</label>
+                            <select name="crime_id" class="form-select">
+                                <option value="">Select Crime Incident...</option>
+                                <% crimes.forEach(c => { %>
+                                    <option value="<%= c.crime_id %>" <%= c.crime_id === evidence.crime_id ? 'selected' : '' %>><%= c.type %> (ID: <%= c.crime_id %>)</option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                        <a href="/evidence" class="btn btn-light px-4">Cancel</a>
+                        <button type="submit" class="btn btn-success px-4">Update Evidence</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

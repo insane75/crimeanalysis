@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white py-3">
+                <h4 class="fw-bold mb-0">Update Location: <%= location.city %></h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="/locations/edit/<%= location.location_id %>" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted">LOCATION ID (Locked)</label>
+                            <input type="number" class="form-control bg-light" value="<%= location.location_id %>" readonly>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small text-muted">CITY</label>
+                            <input type="text" name="city" class="form-control" value="<%= location.city %>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">STATE / REGION</label>
+                            <input type="text" name="state" class="form-control" value="<%= location.state %>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">COUNTRY</label>
+                            <input type="text" name="country" class="form-control" value="<%= location.country %>" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">IP ADDRESS / NETWORK RANGE</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-network-wired"></i></span>
+                                <input type="text" name="ip_address" class="form-control" value="<%= location.ip_address %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                        <a href="/locations" class="btn btn-light px-4">Cancel</a>
+                        <button type="submit" class="btn btn-success px-4">Update Location</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

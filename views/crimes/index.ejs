@@ -1,0 +1,70 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="fas fa-exclamation-triangle me-2 text-warning"></i>Crime Registry</h2>
+    <a href="/crimes/add" class="btn btn-primary">
+        <i class="fas fa-plus me-1"></i> Report New Crime
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Type</th>
+                        <th>Severity</th>
+                        <th>Date & Time</th>
+                        <th>Location</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% crimes.forEach(crime => { %>
+                        <tr>
+                            <td class="ps-4 fw-bold"><%= crime.crime_id %></td>
+                            <td><span class="fw-semibold text-primary"><%= crime.type %></span></td>
+                            <td>
+                                <% if(crime.severity_level == 'High') { %>
+                                    <span class="badge bg-danger">High Serious</span>
+                                <% } else if(crime.severity_level == 'Medium') { %>
+                                    <span class="badge bg-warning text-dark">Medium</span>
+                                <% } else { %>
+                                    <span class="badge bg-success">Low</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <div class="small fw-bold"><%= new Date(crime.date).toLocaleDateString() %></div>
+                                <div class="text-muted smaller"><%= crime.time %></div>
+                            </td>
+                            <td>
+                                <% if(crime.city) { %>
+                                    <i class="fas fa-map-marker-alt text-muted me-1"></i><%= crime.city %>, <%= crime.state %>
+                                <% } else { %>
+                                    <span class="text-muted italic">Unknown</span>
+                                <% } %>
+                            </td>
+                            <td class="text-end pe-4">
+                                <a href="/crimes/edit/<%= crime.crime_id %>" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/crimes/delete/<%= crime.crime_id %>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this crime record?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                    <% if (crimes.length === 0) { %>
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">No crime records recorded.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
